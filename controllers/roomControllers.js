@@ -1,5 +1,7 @@
 import Room from "../models/room";
 
+import ErrorHandler from "../utils/errorHandler";
+
 const allRooms = async (req, res) => {
   try {
     const rooms = await Room.find();
@@ -40,10 +42,7 @@ const getSingleRoom = async (req, res) => {
     const room = await Room.findById(req.query.id);
 
     if (!room) {
-      return res.status(400).json({
-        success: false,
-        error: "Room not found with this ID",
-      });
+      return next(new ErrorHandler("Room not found with this ID", 404));
     }
 
     res.status(200).json({
