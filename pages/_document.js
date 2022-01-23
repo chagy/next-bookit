@@ -40,13 +40,6 @@ class MyDocument extends Document {
             integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
             crossOrigin="anonymous"
           ></script>
-
-          <script type="text/javascript">
-            const stars = 5; const rating = 4.5; const starPercentage = `$
-            {(rating / stars) * 100}%`;
-            document.querySelector(`.rating-inner`).style.width =
-            starPercentage;
-          </script>
         </body>
       </Html>
     );
