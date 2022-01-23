@@ -3,6 +3,8 @@ import absoluteUrl from "next-absolute-url";
 import {
   ALL_ROOMS_SUCCESS,
   ALL_ROOMS_FAIL,
+  ROOM_DETAILS_SUCCESS,
+  ROOM_DETAILS_FAIL,
   CLEAR_ERRORS,
 } from "../constants/roomConstants";
 
