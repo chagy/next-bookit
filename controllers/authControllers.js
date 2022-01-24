@@ -3,7 +3,6 @@ import cloudinary from "cloudinary";
 
 import ErrorHandler from "../utils/errorHandler";
 import catchAsyncErrors from "../middlewares/catchAsyncErrors";
-import APIFeatures from "../utils/apiFeatures";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -11,6 +10,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+// Register user   =>   /api/auth/register
 const registerUser = catchAsyncErrors(async (req, res) => {
   const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
     folder: "bookit/avatars",
