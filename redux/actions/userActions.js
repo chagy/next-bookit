@@ -4,6 +4,9 @@ import {
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAIL,
+  LOAD_USER_REQUEST,
+  LOAD_USER_SUCCESS,
+  LOAD_USER_FAIL,
   CLEAR_ERRORS,
 } from "../constants/userConstants";
 
@@ -30,18 +33,19 @@ export const registerUser = (userData) => async (dispatch) => {
   }
 };
 
-export const getRoomDetails = (req, id) => async (dispatch) => {
+export const loadUser = () => async (dispatch) => {
   try {
-    const { origin } = absoluteUrl(req);
-    const { data } = await axios.get(`${origin}/api/rooms/${id}`);
+    dispatch({ type: LOAD_USER_REQUEST });
+
+    const { data } = await axios.get("/api/me");
 
     dispatch({
-      type: ROOM_DETAILS_SUCCESS,
-      payload: data.room,
+      type: LOAD_USER_SUCCESS,
+      payload: data.user,
     });
   } catch (error) {
     dispatch({
-      type: ROOM_DETAILS_FAIL,
+      type: LOAD_USER_FAIL,
       payload: error.response.data.message,
     });
   }
