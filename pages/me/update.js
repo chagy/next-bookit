@@ -1,23 +1,21 @@
-import Register from "../components/auth/Register";
-import Layout from "../components/layout/Layout";
-
+import React from "react";
 import { getSession } from "next-auth/client";
 
-export default function RegisterPage() {
+const UpdateProfilePage = () => {
   return (
-    <Layout title="Register">
-      <Register />
-    </Layout>
+    <div>
+      <h1>User Profile</h1>
+    </div>
   );
-}
+};
 
 export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req });
 
-  if (session) {
+  if (!session) {
     return {
       redirect: {
-        destination: "/",
+        destination: "/login",
         permanent: false,
       },
     };
@@ -27,3 +25,5 @@ export async function getServerSideProps(context) {
     props,
   };
 }
+
+export default UpdateProfilePage;

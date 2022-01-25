@@ -8,11 +8,13 @@ import { signOut } from "next-auth/client";
 function Header() {
   const dispatch = useDispatch();
 
-  const { user, loading } = useSelector((state) => state.auth);
+  const { user, loading } = useSelector((state) => state.loadedUser);
 
   useEffect(() => {
-    dispatch(loadUser());
-  }, [dispatch]);
+    if (!user) {
+      dispatch(loadUser());
+    }
+  }, [dispatch, user]);
 
   const logoutHandler = () => {
     signOut();
