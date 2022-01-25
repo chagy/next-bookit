@@ -25,7 +25,6 @@ const Register = () => {
   );
 
   const { success, error, loading } = useSelector((state) => state.auth);
-  console.log(success);
 
   useEffect(() => {
     if (success) {

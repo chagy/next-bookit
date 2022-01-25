@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "../../redux/actions/userActions";
 import { signOut } from "next-auth/client";
 
-function Header() {
+const Header = () => {
   const dispatch = useDispatch();
 
   const { user, loading } = useSelector((state) => state.loadedUser);
@@ -34,6 +34,7 @@ function Header() {
             </Link>
           </div>
         </div>
+
         <div className="col-3 mt-3 mt-md-0 text-center">
           {user ? (
             <div className="ml-4 dropdown d-line">
@@ -51,18 +52,43 @@ function Header() {
                     className="rounded-circle"
                   />
                 </figure>
-                <span>{user && user}</span>
+                <span>{user && user.name}</span>
               </a>
+
               <div
                 className="dropdown-menu"
                 aria-labelledby="dropDownMenuButton"
               >
+                {user.role === "admin" && (
+                  <>
+                    <Link href="/admin/rooms">
+                      <a className="dropdown-item">Rooms</a>
+                    </Link>
+
+                    <Link href="/admin/bookings">
+                      <a className="dropdown-item">Bookings</a>
+                    </Link>
+
+                    <Link href="/admin/users">
+                      <a className="dropdown-item">Users</a>
+                    </Link>
+
+                    <Link href="/admin/reviews">
+                      <a className="dropdown-item">Reviews</a>
+                    </Link>
+
+                    <hr />
+                  </>
+                )}
+
                 <Link href="/bookings/me">
                   <a className="dropdown-item">My Bookings</a>
                 </Link>
+
                 <Link href="/me/update">
                   <a className="dropdown-item">Profile</a>
                 </Link>
+
                 <Link href="/">
                   <a
                     className="dropdown-item text-danger"
@@ -86,6 +112,6 @@ function Header() {
       </div>
     </nav>
   );
-}
+};
 
 export default Header;
