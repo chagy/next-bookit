@@ -6,6 +6,7 @@ import catchAsyncErrors from "../middlewares/catchAsyncErrors";
 import sendEmail from "../utils/sendEmail";
 
 import absoluteUrl from "next-absolute-url";
+import crypto from "crypto";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
