@@ -83,22 +83,26 @@ const updateProfile = catchAsyncErrors(async (req, res) => {
   });
 });
 
-const forgotPassword = catchAsyncErrors(async (req, res) => {
-  const user = await User.findById({ email: req.body.email });
+// Forgot password   =>   /api/password/forgot
+const forgotPassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
     return next(new ErrorHandler("User not found with this email", 404));
   }
 
-  const resetToken = user.getPasswordResetToken();
+  // Get reset token
+  const resetToken = user.getResetPasswordToken();
 
   await user.save({ validateBeforeSave: false });
 
+  // Get origin
   const { origin } = absoluteUrl(req);
 
+  // Create reset password url
   const resetUrl = `${origin}/password/reset/${resetToken}`;
 
-  const message = `Your password reset url is as follow: \n\n ${resetUrl} \n\n\n If you have not requested this email,then ignore it.`;
+  const message = `Your password reset url is as follow: \n\n ${resetUrl} \n\n\ If you have not requested this email, then ignore it.`;
 
   try {
     await sendEmail({
@@ -119,10 +123,6 @@ const forgotPassword = catchAsyncErrors(async (req, res) => {
 
     return next(new ErrorHandler(error.message, 500));
   }
-
-  res.status(200).json({
-    success: true,
-  });
 });
 
 export { registerUser, currentUserProfile, updateProfile, forgotPassword };

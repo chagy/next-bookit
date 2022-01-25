@@ -1,6 +1,8 @@
 import Login from "../components/auth/Login";
 import Layout from "../components/layout/Layout";
 
+import { getSession } from "next-auth/client";
+
 export default function LoginPage() {
   return (
     <Layout title="Login">
@@ -22,6 +24,6 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props,
+    props: { session },
   };
 }
