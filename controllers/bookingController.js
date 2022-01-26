@@ -30,4 +30,40 @@ const newBooking = catchAsyncErrors(async (req, res) => {
   });
 });
 
-export { newBooking };
+const checkRoomBookingsAvailability = catchAsyncErrors(async (req, res) => {
+  let { roomId, checkInDate, checkOutDate } = req.body;
+
+  checkInDate = new Date(checkInDate);
+  checkOutDate = new Date(checkOutDate);
+
+  const bookings = await Booking.find({
+    room: roomId,
+    $and: [
+      {
+        checkInDate: {
+          $lte: checkOutDate,
+        },
+      },
+      {
+        checkOutDate: {
+          $gte: checkInDate,
+        },
+      },
+    ],
+  });
+
+  let isAvailable;
+
+  if (bookings && bookings.length === 0) {
+    isAvailable = true;
+  } else {
+    isAvailable = false;
+  }
+
+  res.status(200).json({
+    success: true,
+    isAvailable,
+  });
+});
+
+export { newBooking, checkRoomBookingsAvailability };
