@@ -31,7 +31,7 @@ const newBooking = catchAsyncErrors(async (req, res) => {
 });
 
 const checkRoomBookingsAvailability = catchAsyncErrors(async (req, res) => {
-  let { roomId, checkInDate, checkOutDate } = req.body;
+  let { roomId, checkInDate, checkOutDate } = req.query;
 
   checkInDate = new Date(checkInDate);
   checkOutDate = new Date(checkOutDate);

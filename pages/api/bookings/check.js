@@ -1,7 +1,7 @@
 import nc from "next-connect";
 import dbConnect from "../../../config/dbConnect";
 
-import { checkRoomBookingsAvailability } from "../../../controllers/bookingControllers";
+import { checkRoomBookingsAvailability } from "../../../controllers/bookingController";
 
 import onError from "../../../middlewares/errors";
 
